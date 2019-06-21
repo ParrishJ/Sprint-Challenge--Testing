@@ -19,16 +19,17 @@ server.get('/games', (req, res) => {
 });
 
 server.post('/games', (req, res) => {
-    Games.addGame(req.body)
-        .then(ids => {
-            if (req.body.title && req.body.genre) {
+    if (req.body.title && req.body.genre) {
+        Games.addGame(req.body)
+            .then(ids => {
                 res.status(200).json(ids)
-            } else
-                res.status(422).json({ error: "Required data missing from post" })
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
+            })
+            .catch(error => {
+                res.status(500).json(error)
+            })
+    } else {
+        res.status(422).json({ error: "Required data missing from post" })
+    }
 })
 
 
