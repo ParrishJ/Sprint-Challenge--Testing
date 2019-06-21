@@ -33,7 +33,8 @@ describe('game model', () => {
         it('should return a 422 status code if incomplete game info added', async () => {
             await supertest(server)
                 .post('/games')
-                .send({ title: "", genre: "", releaseYear: 1989 })
+                .send({ title: '', genre: '', releaseYear: 1919 })
+                .expect(422)
         })
     })
 
